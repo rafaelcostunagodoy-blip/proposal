@@ -4,13 +4,15 @@
   <meta charset="UTF-8" />
   <title>For You</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
+      font-family: 'Kalam', cursive;
     }
 
     body {
@@ -18,8 +20,29 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at top, #ffd6ec 0%, #ffb3d9 25%, #ff8fbf 50%, #ff6ba6 75%, #ff4b8b 100%);
+      background: #fbeff5;
+      position: relative;
+      overflow: hidden;
       color: #2d1437;
+    }
+
+    .bg-rotated {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bg-rotated-inner {
+      width: 110vmax;
+      height: 110vmax;
+      background-image: url("bg paper.jfif");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: rotate(90deg);
     }
 
     .card {
@@ -187,17 +210,234 @@
       position: relative;
       z-index: 1;
     }
+
+    .heart-animation-container {
+      position: fixed;
+      inset: 0;
+      background: #ff0000; /* Pure red background */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .floating-heart {
+      position: absolute;
+      color: #ff0000;
+      animation: float 3s ease-in-out infinite;
+      opacity: 0.9;
+      text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+      filter: brightness(1.2);
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.9;
+      }
+      90% {
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(-100vh) scale(2) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .gift-button {
+      margin-top: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ffb347, #ff6ba6);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(255, 133, 102, 0.35);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .gift-button:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 12px 22px rgba(255, 133, 102, 0.45);
+    }
+
+    .gift-screen {
+      margin-top: 20px;
+      animation: popIn 0.6s ease-out;
+    }
+
+    .gift-tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .gift-tab {
+      flex: 1;
+      min-width: 0;
+      border-radius: 12px;
+      padding: 16px 12px;
+      border: 2px solid #ff4b8b;
+      background: #ffffff;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #ff4b8b;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .gift-tab:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      border-color: #ff6ba6;
+    }
+
+    .gift-tab.active {
+      background: #ff4b8b;
+      color: #fff;
+      border-color: #ff4b8b;
+      box-shadow: 0 6px 12px rgba(255, 75, 139, 0.4);
+    }
+
+    .gift-tab-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .gift-tab-label {
+      white-space: nowrap;
+      font-size: 0.9rem;
+    }
+
+    .gift-content-pane {
+      margin-top: 18px;
+      padding-top: 4px;
+    }
+
+    .rose {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 10px;
+      border-radius: 999px;
+      background-image: url("flower.jfif");
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      box-shadow: 0 15px 25px rgba(255, 75, 139, 0.45);
+      animation: pulse 1.3s ease-in-out infinite;
+    }
+
+
+    .rose-stem {
+      width: 4px;
+      height: 42px;
+      background: linear-gradient(to bottom, #198754, #0f5132);
+      border-radius: 999px;
+      margin: -4px auto 0;
+      position: relative;
+    }
+
+    .rose-stem::before,
+    .rose-stem::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: radial-gradient(circle at 0 0, #d1f5d3 0%, #6bbf73 40%, #3b7551 90%);
+      border-radius: 18px 0 18px 0;
+    }
+
+    .rose-stem::before {
+      left: -15px;
+      top: 10px;
+      transform: rotate(-25deg);
+    }
+
+    .rose-stem::after {
+      right: -15px;
+      top: 22px;
+      transform: rotate(155deg);
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 15px 25px rgba(255, 75, 139, 0.45);
+      }
+      50% {
+        transform: scale(1.08);
+        box-shadow: 0 22px 32px rgba(255, 75, 139, 0.65);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 15px 25px rgba(255, 75, 139, 0.45);
+      }
+    }
+
+    .letter-notebook {
+      margin-top: 10px;
+      padding: 14px 14px 16px;
+      border-radius: 14px;
+      background: repeating-linear-gradient(
+          to bottom,
+          #fff,
+          #fff 20px,
+          #ffe4f1 20px,
+          #ffe4f1 21px
+        );
+      box-shadow: 0 14px 26px rgba(0, 0, 0, 0.12);
+      border: 1px solid rgba(255, 75, 139, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter-notebook::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #ffb3d9, #ff6ba6);
+      opacity: 0.7;
+    }
+
+    .letter-placeholder {
+      font-size: 0.85rem;
+      color: #b85a8f;
+      line-height: 1.7;
+      padding-left: 16px;
+    }
   </style>
 </head>
 <body>
+  <div class="bg-rotated">
+    <div class="bg-rotated-inner"></div>
+  </div>
+
   <div class="card">
-    <h1 class="title">Hey you 🥺</h1>
+    <h1 class="title">Hey you</h1>
     <p class="subtitle">I have a very, very important question...</p>
     <p class="question">Will you be my girlfriend?</p>
 
     <div class="buttons">
-      <button id="yesBtn">Yes 💕</button>
-      <button id="noBtn">No 😈</button>
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
     </div>
 
     <p class="footer-note">P.S. Our monthsary day is already destiny ✨</p>
@@ -211,17 +451,257 @@
       const card = document.querySelector(".card");
 
       card.innerHTML = `
-        <h1 class="title">Yessssssssssssssssss! 💖</h1>
+        <h1 class="title">Yessssssssssssssssss!</h1>
         <p class="question" style="margin-top: 10px;">
           Our monthsary day is <strong>26</strong> — it's official now!
         </p>
         <p class="subtitle" style="margin-top: 18px;">
-          You made me the happiest person today. Iloveyou Ela 🥺✨
+          You made me the happiest person today. Iloveyou Ela
         </p>
         <p>Dahil jan you owe me a kiss HWEHWHHEHWHEWH</p>
+        <button class="gift-button" id="giftBtn">Continue to your virtual gift</button>
+        <div id="giftArea"></div>
       `;
 
       card.style.animation = "popIn 0.6s ease-out";
+
+      const giftBtn = document.getElementById("giftBtn");
+      const giftArea = document.getElementById("giftArea");
+
+      // Define these functions in higher scope so they're accessible when reattaching
+      let giftsViewed = { flower: false, letter: false };
+
+      function openFlowerPage() {
+        const fullBody = document.body;
+        giftsViewed.flower = true;
+        fullBody.innerHTML = `
+          <div class="bg-rotated">
+            <div class="bg-rotated-inner"></div>
+          </div>
+          <div class="card" style="max-width: 420px; padding-top: 34px; padding-bottom: 32px;">
+            <h1 class="title">For you, my rose</h1>
+            <div style="text-align:center; margin-top: 4px;">
+              <div class="rose"></div>
+              <p class="subtitle" style="margin-top: 14px;">
+                Every beat of this pulsing rose is how my heart feels when I think of you.
+              </p>
+            </div>
+            <button class="gift-button" id="backToGiftsBtn" style="margin-top: 16px;">Back to gifts</button>
+          </div>
+        `;
+      }
+
+      function openLetterPage() {
+        const fullBody = document.body;
+        giftsViewed.letter = true;
+        fullBody.innerHTML = `
+          <div class="bg-rotated">
+            <div class="bg-rotated-inner"></div>
+          </div>
+          <div class="card" style="max-width: 420px; padding-top: 34px; padding-bottom: 32px;">
+            <h1 class="title">A letter for you</h1>
+            <p class="subtitle" style="margin-bottom: 10px;">Our little notebook of memories</p>
+            <div class="letter-notebook" style="max-height: 300px; overflow-y: auto; padding-right: 10px;">
+              <div class="letter-placeholder" style="text-align: left; line-height: 1.6; font-size: 0.85rem; color: #2d1437;">
+                Hi Ela kung nababasa mo man to ibig sabihin may mata ka, de joke, kung nababasa mo man to ibig sabihin hawak mo cp ko and nov 26 na de jk seryoso na, sorry bae kung eto palang muna yung kaya ko--wala pang budget e and sorry din kase nag sinungaling ako na matutulog na ako pero eto ako ngayon medj puyat kakagawa neto wag ka magalit ha gusto ko lng kase maparamdam sa'yo na mahal na mahal kita and I'll never stop giving you gifts because you deserve all my love, mahal na mahal kita sobra Ela and ayaw na kitang mawala, ALAM MO BA?<br><br>
+                WALA<br><br>
+                yan yung tanong na naka tatak na sa'kin, nakaka inis 'diba<br><br>
+                pero eto seryoso, ALAM MO BA?<br><br>
+                na inlove na inlove ako sa'yo, gustong gusto ko yung pag tataray mo, yung ngiti mo, yung tawa mo yung muka mong sobrang cute sa VC kapag nakatagilid ka na nakahiga, yung buhok mo na sobrang haba and yung ano hehe<br><br>
+                bae I'll promise to be the best partner to you, ayaw na ayaw kitang mawala and I always wanted you to be happy, sobrang swerte ko sa'yo at gusto ko na malaman mo yon.<br><br>
+                again ILOVEYOU ELA.<br><br>
+                from your boyfriend,<br>
+                Raf
+              </div>
+            </div>
+            
+            <button class="gift-button" id="backToGiftsBtn" style="margin-top: 16px;">Back to gifts</button>
+          </div>
+        `;
+      }
+
+      function openFinalQuestion() {
+        const fullBody = document.body;
+        fullBody.innerHTML = `
+          <div class="bg-rotated">
+            <div class="bg-rotated-inner"></div>
+          </div>
+          <div class="card">
+            <h1 class="title">Do you love the gift I made for you bae?</h1>
+            <div class="buttons">
+              <button class="btn" id="finalYesBtn">Yes - kiss me</button>
+              <button class="btn" id="finalNoBtn">No - french kiss me</button>
+            </div>
+          </div>
+        `;
+
+        const finalYesBtn = document.getElementById("finalYesBtn");
+        const finalNoBtn = document.getElementById("finalNoBtn");
+
+        // Make the buttons non-clickable by not adding any event listeners
+
+        // After 10 seconds, show the kiss button
+        setTimeout(() => {
+          const card = document.querySelector(".card");
+          const buttonsContainer = card.querySelector(".buttons");
+          
+          // Create a new container for the kiss button to avoid overlap
+          const kissButtonContainer = document.createElement("div");
+          kissButtonContainer.style.textAlign = "center";
+          kissButtonContainer.style.marginTop = "20px";
+          
+          const kissButton = document.createElement("button");
+          kissButton.className = "gift-button";
+          kissButton.id = "kissBtn";
+          kissButton.textContent = "if you already kiss raf click this";
+          
+          kissButtonContainer.appendChild(kissButton);
+          card.appendChild(kissButtonContainer);
+          
+          // Add click handler for the kiss button
+          kissButton.addEventListener("click", () => {
+            startHeartAnimation();
+          });
+        }, 10000);
+      }
+
+      function startHeartAnimation() {
+        const fullBody = document.body;
+        fullBody.innerHTML = `
+          <div class="heart-animation-container" id="heartContainer">
+            <!-- Hearts will be added here dynamically -->
+          </div>
+        `;
+        
+        let heartCount = 0;
+        const maxHearts = 200; // Much more hearts
+        const container = document.getElementById("heartContainer");
+        
+        function createHeart() {
+          if (heartCount >= maxHearts) {
+            // Show final message after screen is filled with red hearts
+            setTimeout(() => {
+              const finalMessage = document.createElement("div");
+              finalMessage.className = "final-message";
+              finalMessage.innerHTML = `
+                <h1 style="color: white; font-size: 3rem; text-shadow: 0 0 20px rgba(0,0,0,0.8); margin: 0;">ILOVEYOU MY ELA</h1>
+                <p style="color: white; font-size: 1.5rem; text-shadow: 0 0 10px rgba(0,0,0,0.8); margin-top: 20px;">lets enjoy the rest of the day together</p>
+              `;
+              finalMessage.style.position = "fixed";
+              finalMessage.style.top = "50%";
+              finalMessage.style.left = "50%";
+              finalMessage.style.transform = "translate(-50%, -50%)";
+              finalMessage.style.textAlign = "center";
+              finalMessage.style.zIndex = "1000";
+              
+              document.body.appendChild(finalMessage);
+            }, 1000);
+            return;
+          }
+          
+          const heart = document.createElement("div");
+          heart.className = "floating-heart";
+          heart.innerHTML = "❤️";
+          heart.style.left = Math.random() * 100 + "%";
+          heart.style.top = Math.random() * 100 + "%";
+          heart.style.animationDelay = Math.random() * 0.5 + "s";
+          heart.style.fontSize = (Math.random() * 60 + 40) + "px"; // Much bigger hearts (40-100px)
+          heart.style.color = `hsl(${Math.random() * 20}, 100%, 50%)`; // Various red shades
+          heart.style.opacity = Math.random() * 0.3 + 0.7; // 0.7-1.0 opacity
+          
+          container.appendChild(heart);
+          heartCount++;
+          
+          // Create hearts much faster for screen filling effect
+          setTimeout(createHeart, 30);
+        }
+        
+        createHeart();
+      }
+
+      giftBtn.addEventListener("click", () => {
+        const fullBody = document.body;
+
+        fullBody.innerHTML = `
+          <div class="bg-rotated">
+            <div class="bg-rotated-inner"></div>
+          </div>
+          <div class="card" id="giftCard">
+            <h1 class="title">Your virtual gift</h1>
+            <p class="subtitle" style="margin-bottom: 4px;">Choose which one you want to open first:</p>
+            <div class="gift-tabs">
+              <button class="gift-tab" id="flowerTab">
+                <span class="gift-tab-icon"></span>
+                <span class="gift-tab-label">Flower</span>
+              </button>
+              <button class="gift-tab" id="letterTab">
+                <span class="gift-tab-icon"></span>
+                <span class="gift-tab-label">Letter</span>
+              </button>
+            </div>
+            ${giftsViewed.flower && giftsViewed.letter ? `
+              <button class="gift-button" id="finalQuestionBtn" style="margin-top: 20px;">Continue to final question</button>
+            ` : ''}
+          </div>
+        `;
+
+        const flowerTab = document.getElementById("flowerTab");
+        const letterTab = document.getElementById("letterTab");
+
+        if (flowerTab) flowerTab.addEventListener("click", openFlowerPage);
+        if (letterTab) letterTab.addEventListener("click", openLetterPage);
+
+        if (giftsViewed.flower && giftsViewed.letter) {
+          const finalQuestionBtn = document.getElementById("finalQuestionBtn");
+          if (finalQuestionBtn) {
+            finalQuestionBtn.addEventListener("click", openFinalQuestion);
+          }
+        }
+      });
+
+      // Back to gifts button logic
+      document.addEventListener("click", (e) => {
+        if (e.target && e.target.id === "backToGiftsBtn") {
+          const fullBody = document.body;
+          fullBody.innerHTML = `
+            <div class="bg-rotated">
+              <div class="bg-rotated-inner"></div>
+            </div>
+            <div class="card" id="giftCard">
+              <h1 class="title">Your virtual gift</h1>
+              <p class="subtitle" style="margin-bottom: 4px;">Choose which one you want to open first:</p>
+              <div class="gift-tabs">
+                <button class="gift-tab" id="flowerTab">
+                  <span class="gift-tab-icon"></span>
+                  <span class="gift-tab-label">Flower</span>
+                </button>
+                <button class="gift-tab" id="letterTab">
+                  <span class="gift-tab-icon"></span>
+                  <span class="gift-tab-label">Letter</span>
+                </button>
+              </div>
+              ${giftsViewed.flower && giftsViewed.letter ? `
+                <button class="gift-button" id="finalQuestionBtn" style="margin-top: 20px;">Continue to final question</button>
+              ` : ''}
+            </div>
+          `;
+
+          // Re-attach event listeners after restoring HTML
+          const flowerTab = document.getElementById("flowerTab");
+          const letterTab = document.getElementById("letterTab");
+
+          if (flowerTab) flowerTab.addEventListener("click", openFlowerPage);
+          if (letterTab) letterTab.addEventListener("click", openLetterPage);
+
+          // Show final question button if both gifts have been viewed
+          if (giftsViewed.flower && giftsViewed.letter) {
+            const finalQuestionBtn = document.getElementById("finalQuestionBtn");
+            if (finalQuestionBtn) {
+              finalQuestionBtn.addEventListener("click", openFinalQuestion);
+            }
+          }
+        }
+      });
     });
 
     function teleportNoButton() {
