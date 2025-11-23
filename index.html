@@ -36,10 +36,10 @@
     }
 
     .bg-rotated-inner {
-      width: 110vmax;
-      height: 110vmax;
+      width: 100vw;
+      height: 100vh;
       background-image: url("bg paper.jfif");
-      background-size: contain;
+      background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       transform: rotate(90deg);
@@ -224,15 +224,15 @@
     .floating-heart {
       position: absolute;
       color: #ff0000;
-      animation: float 3s ease-in-out infinite;
+      animation: float 2s ease-out forwards;
       opacity: 0.9;
-      text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-      filter: brightness(1.2);
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+      will-change: transform, opacity;
     }
 
     @keyframes float {
       0% {
-        transform: translateY(100vh) scale(0) rotate(0deg);
+        transform: translateY(100vh) scale(0);
         opacity: 0;
       }
       10% {
@@ -242,7 +242,7 @@
         opacity: 0.9;
       }
       100% {
-        transform: translateY(-100vh) scale(2) rotate(360deg);
+        transform: translateY(-100vh) scale(1);
         opacity: 0;
       }
     }
@@ -573,7 +573,8 @@
         `;
         
         let heartCount = 0;
-        const maxHearts = 200; // Much more hearts
+        // Reduce hearts for mobile performance
+        const maxHearts = window.innerWidth < 768 ? 50 : 150;
         const container = document.getElementById("heartContainer");
         
         function createHeart() {
@@ -604,15 +605,17 @@
           heart.style.left = Math.random() * 100 + "%";
           heart.style.top = Math.random() * 100 + "%";
           heart.style.animationDelay = Math.random() * 0.5 + "s";
-          heart.style.fontSize = (Math.random() * 60 + 40) + "px"; // Much bigger hearts (40-100px)
-          heart.style.color = `hsl(${Math.random() * 20}, 100%, 50%)`; // Various red shades
-          heart.style.opacity = Math.random() * 0.3 + 0.7; // 0.7-1.0 opacity
+          // Smaller hearts on mobile for better performance
+          const isMobile = window.innerWidth < 768;
+          heart.style.fontSize = (Math.random() * (isMobile ? 30 : 60) + (isMobile ? 20 : 40)) + "px";
+          heart.style.color = `hsl(${Math.random() * 20}, 100%, 50%)`;
+          heart.style.opacity = Math.random() * 0.3 + 0.7;
           
           container.appendChild(heart);
           heartCount++;
           
-          // Create hearts much faster for screen filling effect
-          setTimeout(createHeart, 30);
+          // Slower heart generation on mobile
+          setTimeout(createHeart, isMobile ? 100 : 30);
         }
         
         createHeart();
